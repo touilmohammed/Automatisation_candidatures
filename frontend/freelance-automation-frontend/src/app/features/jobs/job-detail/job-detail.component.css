@@ -1,0 +1,101 @@
+.job-detail-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 20px;
+}
+
+.back-link {
+  text-decoration: none;
+}
+
+.info-box {
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.error {
+  color: #b00020;
+  margin-bottom: 16px;
+}
+
+.success {
+  color: #1b7f3b;
+  margin-bottom: 16px;
+}
+
+.job-card,
+.matching-card {
+  margin-bottom: 24px;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.job-header {
+  margin-bottom: 20px;
+}
+
+.job-header h1 {
+  margin: 0 0 8px 0;
+}
+
+.platform {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #f2f2f2;
+  font-size: 0.9rem;
+}
+
+.job-meta {
+  margin-bottom: 24px;
+}
+
+.job-meta p {
+  margin: 8px 0;
+}
+
+.job-description h2,
+.matching-card h2 {
+  margin-top: 0;
+}
+
+.job-description p {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.job-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.keywords {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.keyword {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f2f2f2;
+  font-size: 0.9rem;
+}

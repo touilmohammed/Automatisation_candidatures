@@ -1,0 +1,82 @@
+.application-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 20px;
+}
+
+.back-link {
+  text-decoration: none;
+}
+
+.info-box,
+.application-card,
+.document-card,
+.submission-card {
+  margin-bottom: 24px;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.error {
+  color: #b00020;
+  margin-bottom: 16px;
+}
+
+.success {
+  color: #1b7f3b;
+  margin-bottom: 16px;
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.application-header h1 {
+  margin: 0;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #f2f2f2;
+  font-size: 0.9rem;
+}
+
+.application-meta p,
+.submission-card p {
+  margin: 8px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.document-card pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #fafafa;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.6;
+  font-family: inherit;
+}

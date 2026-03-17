@@ -1,0 +1,63 @@
+<section class="job-detail-page">
+  <div class="page-header">
+    <a routerLink="/jobs" class="back-link">← Retour aux offres</a>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Chargement de l’offre...
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+  <article class="job-card" *ngIf="!isLoading && job">
+    <div class="job-header">
+      <div>
+        <h1>{{ job.title }}</h1>
+        <p class="platform">{{ job.platform }}</p>
+      </div>
+    </div>
+
+    <div class="job-meta">
+      <p><strong>Budget :</strong> {{ job.budget }} {{ job.currency }}</p>
+      <p><strong>Lieu :</strong> {{ job.location || 'Non renseigné' }}</p>
+      <p><strong>Remote :</strong> {{ job.remoteAllowed ? 'Oui' : 'Non' }}</p>
+      <p><strong>Publié le :</strong> {{ job.postedAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p *ngIf="job.jobUrl">
+        <strong>Lien :</strong>
+        <a [href]="job.jobUrl" target="_blank" rel="noopener noreferrer">Ouvrir l’offre sur la plateforme</a>
+      </p>
+    </div>
+
+    <div class="job-description">
+      <h2>Description</h2>
+      <p>{{ job.description }}</p>
+    </div>
+
+    <div class="job-actions">
+      <button type="button" (click)="evaluate()" [disabled]="isMatching">
+        {{ isMatching ? 'Analyse...' : 'Analyser le matching' }}
+      </button>
+
+      <button type="button" (click)="generateApplication()" [disabled]="isGenerating">
+        {{ isGenerating ? 'Génération...' : 'Générer candidature' }}
+      </button>
+    </div>
+  </article>
+
+  <section class="matching-card" *ngIf="matching">
+    <h2>Résultat du matching</h2>
+
+    <p><strong>Score :</strong> {{ matching.score }} ({{ scorePercentage }}%)</p>
+    <p><strong>Décision :</strong> {{ matching.decision }}</p>
+
+    <div *ngIf="matching.matchedKeywords?.length">
+      <h3>Mots-clés matchés</h3>
+      <div class="keywords">
+        <span class="keyword" *ngFor="let keyword of matching.matchedKeywords">
+          {{ keyword }}
+        </span>
+      </div>
+    </div>
+  </section>
+</section>

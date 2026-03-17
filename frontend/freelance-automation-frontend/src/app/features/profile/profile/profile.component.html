@@ -1,0 +1,71 @@
+<section class="profile-page">
+  <div class="page-header">
+    <h1>Mon profil freelance</h1>
+    <p>Complète ton profil pour améliorer le matching avec les offres.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Chargement du profil...
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="profile-form" *ngIf="!isLoading">
+    <div class="form-group">
+      <label for="title">Titre professionnel</label>
+      <input id="title" type="text" formControlName="title" placeholder="Ex: Développeur Backend Java" />
+      <small class="error" *ngIf="title?.invalid && title?.touched">
+        Le titre est requis.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="skills">Compétences</label>
+      <textarea
+        id="skills"
+        formControlName="skills"
+        rows="5"
+        placeholder="Ex: Java, Spring Boot, PostgreSQL, Docker, Kafka"
+      ></textarea>
+      <small class="error" *ngIf="skills?.invalid && skills?.touched">
+        Les compétences sont requises.
+      </small>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="yearsOfExperience">Années d’expérience</label>
+        <input id="yearsOfExperience" type="number" formControlName="yearsOfExperience" />
+        <small class="error" *ngIf="yearsOfExperience?.invalid && yearsOfExperience?.touched">
+          La valeur doit être positive ou nulle.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="dailyRate">TJM</label>
+        <input id="dailyRate" type="number" formControlName="dailyRate" />
+        <small class="error" *ngIf="dailyRate?.invalid && dailyRate?.touched">
+          La valeur doit être positive ou nulle.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="missionPreferences">Préférences de mission</label>
+      <textarea
+        id="missionPreferences"
+        formControlName="missionPreferences"
+        rows="4"
+        placeholder="Ex: Remote, backend, missions 3 mois minimum, secteur tech"
+      ></textarea>
+      <small class="error" *ngIf="missionPreferences?.invalid && missionPreferences?.touched">
+        Les préférences de mission sont requises.
+      </small>
+    </div>
+
+    <button type="submit" [disabled]="isSaving">
+      {{ isSaving ? 'Enregistrement...' : 'Enregistrer le profil' }}
+    </button>
+
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</section>

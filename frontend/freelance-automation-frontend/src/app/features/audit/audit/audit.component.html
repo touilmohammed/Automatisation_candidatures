@@ -1,0 +1,27 @@
+<section class="audit-page">
+  <div class="page-header">
+    <h1>Historique / Audit</h1>
+    <p>Retrouve ici les principales actions liées à ton compte et à tes candidatures.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Chargement de l’historique...
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <div class="info-box" *ngIf="!isLoading && !errorMessage && logs.length === 0">
+    Aucun événement d’audit disponible.
+  </div>
+
+  <div class="audit-list" *ngIf="!isLoading && logs.length > 0">
+    <article class="audit-card" *ngFor="let log of logs; trackBy: trackByLogId">
+      <div class="audit-top">
+        <h2>{{ log.action }}</h2>
+        <span class="date">{{ log.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+
+      <p class="details">{{ log.details }}</p>
+    </article>
+  </div>
+</section>

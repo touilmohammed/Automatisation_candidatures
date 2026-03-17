@@ -1,0 +1,39 @@
+<section class="cv-page">
+  <div class="page-header">
+    <h1>Mon CV</h1>
+    <p>Importe ton CV pour alimenter la génération et le matching.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Chargement du CV...
+  </div>
+
+  <div class="upload-card" *ngIf="!isLoading">
+    <label for="cvFile" class="upload-label">Choisir un fichier PDF ou DOCX</label>
+    <input id="cvFile" type="file" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx" />
+
+    <p class="selected-file" *ngIf="selectedFileName">
+      Fichier sélectionné : {{ selectedFileName }}
+    </p>
+
+    <p class="info" *ngIf="isUploading">Upload en cours...</p>
+    <p class="success" *ngIf="message">{{ message }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+
+  <div class="cv-meta-card" *ngIf="currentCv">
+    <h2>CV actuel</h2>
+    <p><strong>Nom :</strong> {{ currentCv.filename }}</p>
+    <p><strong>Type :</strong> {{ currentCv.mimeType }}</p>
+    <p><strong>Uploadé le :</strong> {{ currentCv.uploadedAt | date:'dd/MM/yyyy HH:mm' }}</p>
+  </div>
+
+  <div class="cv-text-card" *ngIf="extractedText">
+    <h2>Texte extrait</h2>
+    <pre>{{ extractedText }}</pre>
+  </div>
+
+  <div class="info-box" *ngIf="!isLoading && !currentCv">
+    Aucun CV importé pour le moment.
+  </div>
+</section>

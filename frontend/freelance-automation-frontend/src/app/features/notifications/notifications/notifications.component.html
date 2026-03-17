@@ -1,0 +1,55 @@
+<section class="notifications-page">
+  <div class="page-header">
+    <h1>Notifications</h1>
+    <p>
+      Consulte les actions récentes du système et ce qui demande ton attention.
+    </p>
+    <p class="summary" *ngIf="!isLoading">
+      <strong>Total :</strong> {{ notifications.length }}
+      — <strong>Non lues :</strong> {{ unreadCount }}
+    </p>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Chargement des notifications...
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+  <div class="info-box" *ngIf="!isLoading && !errorMessage && notifications.length === 0">
+    Aucune notification pour le moment.
+  </div>
+
+  <div class="notifications-list" *ngIf="!isLoading && notifications.length > 0">
+    <article
+      class="notification-card"
+      *ngFor="let notification of notifications"
+      [class.unread]="!notification.isRead"
+    >
+      <div class="notification-content">
+        <div class="notification-top">
+          <span class="status-badge" [class.read]="notification.isRead">
+            {{ notification.isRead ? 'Lue' : 'Non lue' }}
+          </span>
+          <span class="date">{{ notification.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+
+        <p class="message">{{ notification.message }}</p>
+
+        <p class="read-at" *ngIf="notification.readAt">
+          <strong>Lue le :</strong> {{ notification.readAt | date:'dd/MM/yyyy HH:mm' }}
+      </div>
+
+      <div class="notification-actions" *ngIf="!notification.isRead">
+        <button
+          type="button"
+          (click)="markAsRead(notification.id)"
+          [disabled]="isProcessing(notification.id)"
+        >
+          {{ isProcessing(notification.id) ? 'Traitement...' : 'Marquer comme lue' }}
+        </button>
+      </div>
+    </article>
+  </div>
+</section>

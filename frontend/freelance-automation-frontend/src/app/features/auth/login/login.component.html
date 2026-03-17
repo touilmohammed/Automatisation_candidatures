@@ -1,0 +1,26 @@
+<section class="auth-card">
+  <h1>Connexion</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input id="password" type="password" formControlName="password" />
+    </div>
+
+    <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+    </button>
+  </form>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <p>
+    Pas encore de compte ?
+    <a routerLink="/register">Créer un compte</a>
+  </p>
+</section>

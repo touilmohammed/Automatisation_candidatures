@@ -1,0 +1,61 @@
+.cv-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #555;
+}
+
+.upload-card,
+.cv-meta-card,
+.cv-text-card,
+.info-box {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.upload-label {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+input[type="file"] {
+  display: block;
+}
+
+.selected-file,
+.info,
+.success,
+.error {
+  margin-top: 12px;
+}
+
+.success {
+  color: #1b7f3b;
+}
+
+.error {
+  color: #b00020;
+}
+
+.cv-text-card pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #fafafa;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+}

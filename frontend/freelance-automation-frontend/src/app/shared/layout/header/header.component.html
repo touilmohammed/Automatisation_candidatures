@@ -1,0 +1,21 @@
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <a routerLink="/jobs">Freelance Automation Platform</a>
+    </div>
+
+    <nav class="nav" *ngIf="authService.isLoggedIn()">
+      <a routerLink="/jobs" routerLinkActive="active-link">Jobs</a>
+      <a routerLink="/profile" routerLinkActive="active-link">Profil</a>
+      <a routerLink="/cv" routerLinkActive="active-link">CV</a>
+      <a routerLink="/notifications" routerLinkActive="active-link">Notifications</a>
+      <a routerLink="/audit" routerLinkActive="active-link">Audit</a>
+      <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+    </nav>
+
+    <nav class="nav" *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login" routerLinkActive="active-link">Login</a>
+      <a routerLink="/register" routerLinkActive="active-link">Register</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,64 @@
+<section class="application-page">
+  <div class="page-header">
+    <a routerLink="/jobs" class="back-link">← Retour aux offres</a>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Chargement de la candidature...
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+  <article class="application-card" *ngIf="!isLoading && application">
+    <div class="application-header">
+      <h1>{{ application.jobTitle }}</h1>
+      <span class="status-badge">{{ application.status }}</span>
+    </div>
+
+    <div class="application-meta">
+        <p><strong>ID candidature :</strong> {{ application.id }}</p>
+        <p><strong>Créée le :</strong> {{ application.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Review le :</strong> {{ application.reviewedAt ? (application.reviewedAt | date:'dd/MM/yyyy HH:mm') : 'Pas encore revue' }}</p>
+        <p><strong>Soumise le :</strong> {{ application.submittedAt ? (application.submittedAt | date:'dd/MM/yyyy HH:mm') : 'Pas encore soumise' }}</p>
+        <p><strong>Mode de soumission :</strong> {{ application.submissionMode || 'Non défini' }}</p>
+    </div>
+
+    <div class="actions">
+      <button type="button" (click)="validate()" [disabled]="!canValidate || isValidating">
+        {{ isValidating ? 'Validation...' : 'Valider' }}
+      </button>
+
+      <button type="button" (click)="reject()" [disabled]="!canReject || isRejecting">
+        {{ isRejecting ? 'Rejet...' : 'Rejeter' }}
+      </button>
+
+      <button type="button" (click)="submit()" [disabled]="!canSubmit || isSubmitting">
+        {{ isSubmitting ? 'Soumission...' : 'Soumettre' }}
+      </button>
+    </div>
+  </article>
+
+  <section class="submission-card" *ngIf="submissionResult">
+    <h2>Résultat de soumission</h2>
+    <p><strong>Statut :</strong> {{ submissionResult.status }}</p>
+    <p><strong>Mode :</strong> {{ submissionResult.submissionMode }}</p>
+    <p><strong>Soumis le :</strong> {{ submissionResult.submittedAt | date:'dd/MM/yyyy HH:mm' }}</p>
+    <p *ngIf="submissionResult.targetUrl">
+      <strong>URL cible :</strong>
+      <a [href]="submissionResult.targetUrl" target="_blank" rel="noopener noreferrer">
+        Ouvrir la plateforme
+      </a>
+    </p>
+  </section>
+
+  <section class="document-card" *ngIf="application">
+    <h2>CV généré</h2>
+    <pre>{{ application.generatedCv }}</pre>
+  </section>
+
+  <section class="document-card" *ngIf="application">
+    <h2>Lettre de motivation générée</h2>
+    <pre>{{ application.generatedCoverLetter }}</pre>
+  </section>
+</section>
