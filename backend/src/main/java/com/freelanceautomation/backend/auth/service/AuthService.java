@@ -42,8 +42,12 @@ public class AuthService {
     public AuthResponse login(LoginRequest request) {
         String email = request.email().trim().toLowerCase();
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("INVALID_CREDENTIALS"));
+        var optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            throw new IllegalArgumentException("INVALID_CREDENTIALS");
+        }
+
+        User user = optionalUser.get(); 
 
         if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
             throw new IllegalArgumentException("INVALID_CREDENTIALS");

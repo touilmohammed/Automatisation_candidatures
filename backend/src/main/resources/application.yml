@@ -21,3 +21,11 @@ app:
   jwt:
     secret: "change-this-secret-key-change-this-secret-key"
     expiration-minutes: 60
+
+  storage:
+    cv-directory: uploads/cv
+
+  mistral:
+    api-key: ${MISTRAL_API_KEY}
+    model: mistral-medium-latest
+    base-url: https://api.mistral.ai

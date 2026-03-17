@@ -35,7 +35,52 @@ public class GlobalExceptionHandler {
                     .body(Map.of("error", "USER_NOT_FOUND"));
         }
 
-        return ResponseEntity.badRequest()
+        if ("CV_NOT_FOUND".equals(message)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "CV_NOT_FOUND"));
+        }
+
+        if ("UNSUPPORTED_CV_FORMAT".equals(message)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "UNSUPPORTED_CV_FORMAT"));
+        }
+
+        if ("EMPTY_FILE".equals(message)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "EMPTY_FILE"));
+        }
+
+        if ("INVALID_FILENAME".equals(message)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "INVALID_FILENAME"));
+        }
+
+        if ("PDF_TEXT_EXTRACTION_FAILED".equals(message)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "PDF_TEXT_EXTRACTION_FAILED"));
+        }
+
+        if ("JOB_NOT_FOUND".equals(message)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "JOB_NOT_FOUND"));
+        }
+
+        if ("APPLICATION_NOT_FOUND".equals(message)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "APPLICATION_NOT_FOUND"));
+        }
+
+        if ("APPLICATION_NOT_VALIDATED".equals(message)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "APPLICATION_NOT_VALIDATED"));
+        }
+
+        if ("NOTIFICATION_NOT_FOUND".equals(message)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "NOTIFICATION_NOT_FOUND"));
+        }
+
+         return ResponseEntity.badRequest()
                 .body(Map.of("error", message));
     }
 
@@ -51,5 +96,11 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest()
                 .body(Map.of("error", errorMessage));
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalState(IllegalStateException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(Map.of("error", ex.getMessage()));
     }
 }
