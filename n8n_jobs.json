@@ -1,0 +1,117 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -320,
+        -208
+      ],
+      "id": "7fd4a5b6-aa09-4ce0-9f9c-b33810bf43bd",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://remotive.com/api/remote-jobs",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -48,
+        -208
+      ],
+      "id": "fe2dcef8-457d-4dc9-9773-e2ed1aee677d",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst jobs = response.jobs ?? [];\n\nfunction stripHtml(html) {\n  return String(html || '')\n    .replace(/<img[^>]*>/gi, ' ')\n    .replace(/<[^>]+>/g, ' ')\n    .replace(/&nbsp;/g, ' ')\n    .replace(/&amp;/g, '&')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nreturn jobs.slice(0, 20).map(job => {\n  return {\n    json: {\n      externalId: String(job.id ?? ''),\n      platform: 'remotive',\n      title: String(job.title ?? '').trim(),\n      description: stripHtml(job.description).slice(0, 8000),\n      budget: 0,\n      currency: 'EUR',\n      location: String(job.candidate_required_location ?? 'Remote').trim(),\n      remoteAllowed: true,\n      jobUrl: String(job.url ?? '').trim(),\n      postedAt: job.publication_date\n        ? new Date(job.publication_date).toISOString()\n        : new Date().toISOString()\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        -208
+      ],
+      "id": "ab7a1c50-9492-49cb-b7b1-067df3ec9418",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8080/api/webhooks/jobs",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        -208
+      ],
+      "id": "f86d7cc8-a2c7-4bd1-8351-e762d50c50be",
+      "name": "HTTP Request1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "37ef5acb-139b-4fda-92ee-c5415d98b732",
+  "meta": {
+    "instanceId": "ee8fdcd4d701cd4da515bfbb078b54656fb0deade0437cfa9614815ed112a2b8"
+  },
+  "id": "bMnDIQEepJsrBS93",
+  "tags": []
+}
