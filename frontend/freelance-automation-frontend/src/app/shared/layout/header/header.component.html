@@ -1,21 +1,21 @@
-<header class="header">
-  <div class="header-inner">
-    <div class="brand">
-      <a routerLink="/jobs">Freelance Automation Platform</a>
-    </div>
+<mat-toolbar color="primary">
+  <span class="brand">
+    <a routerLink="/jobs">Freelance Automation Platform</a>
+  </span>
 
-    <nav class="nav" *ngIf="authService.isLoggedIn()">
-      <a routerLink="/jobs" routerLinkActive="active-link">Jobs</a>
-      <a routerLink="/profile" routerLinkActive="active-link">Profil</a>
-      <a routerLink="/cv" routerLinkActive="active-link">CV</a>
-      <a routerLink="/notifications" routerLinkActive="active-link">Notifications</a>
-      <a routerLink="/audit" routerLinkActive="active-link">Audit</a>
-      <button type="button" class="logout-btn" (click)="logout()">Logout</button>
-    </nav>
+  <span class="spacer"></span>
 
-    <nav class="nav" *ngIf="!authService.isLoggedIn()">
-      <a routerLink="/login" routerLinkActive="active-link">Login</a>
-      <a routerLink="/register" routerLinkActive="active-link">Register</a>
-    </nav>
-  </div>
-</header>
+  <nav *ngIf="authService.isLoggedIn()">
+    <button mat-button routerLink="/jobs" routerLinkActive="active-link">Jobs</button>
+    <button mat-button routerLink="/profile" routerLinkActive="active-link">Profil</button>
+    <button mat-button routerLink="/cv" routerLinkActive="active-link">CV</button>
+    <button mat-button routerLink="/notifications" routerLinkActive="active-link">Notifications</button>
+    <button mat-button routerLink="/audit" routerLinkActive="active-link">Audit</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </nav>
+
+  <nav *ngIf="!authService.isLoggedIn()">
+    <button mat-button routerLink="/login" routerLinkActive="active-link">Login</button>
+    <button mat-button routerLink="/register" routerLinkActive="active-link">Register</button>
+  </nav>
+</mat-toolbar>

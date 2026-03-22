@@ -1,26 +1,35 @@
 <section class="auth-card">
-  <h1>Connexion</h1>
+  <mat-card>
+    <mat-card-title>Connexion</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" type="email" formControlName="email" />
+          <mat-error *ngIf="form.get('email')?.hasError('required')">Email requis</mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('email')">Email invalide</mat-error>
+        </mat-form-field>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email" />
-    </div>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput id="password" type="password" formControlName="password" />
+          <mat-error *ngIf="form.get('password')?.hasError('required')">Mot de passe requis</mat-error>
+        </mat-form-field>
 
-    <div class="form-group">
-      <label for="password">Mot de passe</label>
-      <input id="password" type="password" formControlName="password" />
-    </div>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || form.invalid">
+            <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="20" strokeWidth="3"></mat-progress-spinner>
+            <span>{{ isLoading ? 'Connexion...' : 'Se connecter' }}</span>
+          </button>
+        </div>
+      </form>
 
-    <button type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Connexion...' : 'Se connecter' }}
-    </button>
-  </form>
+      <mat-error *ngIf="errorMessage" class="status-message">{{ errorMessage }}</mat-error>
 
-  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-
-  <p>
-    Pas encore de compte ?
-    <a routerLink="/register">Créer un compte</a>
-  </p>
+      <p class="link-text">
+        Pas encore de compte ?
+        <a routerLink="/register">Créer un compte</a>
+      </p>
+    </mat-card-content>
+  </mat-card>
 </section>
